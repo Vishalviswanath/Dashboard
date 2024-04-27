@@ -1,0 +1,35 @@
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  top: 0;
+  left: -250px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  z-index: 1;
+  padding-top: 50px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.main-content {
+  transition: margin-left 0.3s;
+  margin-left: 0;
+  padding: 20px;
+}
+
+.main-content.open {
+  margin-left: 250px;
+}
+
+.sidebar-col {
+  background-color: #f8f9fa;
+  padding: 0;
+  transition: width 0.3s;
+}
+
+.sidebar-col.open {
+  width: 250px;
+}
