@@ -1,18 +1,21 @@
 import { useState } from 'react';
-import EmployeeCard from './EmployeeCard';
+// import EmployeeCard from './EmployeeCard';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Input } from '@mui/material';
+import EmployeeCard from './EmployeeCard';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Employee = () => {
   const [records, setRecords] = useState([
     {
       id: 1,
       image: '/src/assets/employee/HKstrategies-1663-1-1024x683.jpg',
+      type: 'image',
       name: 'Jhone',
       role: 'manager',
       contact: 83278728,
@@ -26,8 +29,9 @@ const Employee = () => {
     },
     {
       id: 3,
-      image: '/src/assets/employee/images.jpg',
-      // 'https://www.corporatephotographylondon.com/wp-content/uploads/2019/11/HKstrategies-755-1-1024x683.jpg',
+      image:
+        // '/src/assets/employee/images.jpg',
+        'https://www.corporatephotographylondon.com/wp-content/uploads/2019/11/HKstrategies-755-1-1024x683.jpg',
       name: 'David',
       role: 'salesperson',
       contact: 39584593,
@@ -53,11 +57,36 @@ const Employee = () => {
   };
 
   return (
-    <Box display='flex' flexDirection={'column'} justifyContent={'center'}>
-      <Typography variant='h4'>Employees List</Typography>
-      <Button variant='outlined' onClick={handleClickOpen}>
-        + Add
-      </Button>
+    <Box margin='30px 0px'>
+      <Box
+        margin='10px 0px'
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <Input
+          margin='dense'
+          placeholder='Search...'
+          disableUnderline
+          sx={{
+            padding: '2px 10px',
+            bgcolor: '#EEEEEE',
+            borderRadius: '10px',
+          }}
+        />
+        <IconButton sx={{ bgcolor: '#EEEEEE', left: '-38px' }}>
+          <SearchIcon sx={{ width: '20px', height: '20px' }} />
+        </IconButton>
+        <Button
+          variant='outlined'
+          onClick={handleClickOpen}
+          sx={{ marginLeft: 'auto', width: '90px' }}
+        >
+          + Add
+        </Button>
+      </Box>
       <Dialog
         open={open}
         onClose={handleClose}
