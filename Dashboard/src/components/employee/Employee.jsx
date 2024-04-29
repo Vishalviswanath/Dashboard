@@ -165,7 +165,6 @@ const Employee = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <EmployeeCard records={records} setRecords={setRecords} />
     </Box>
   );

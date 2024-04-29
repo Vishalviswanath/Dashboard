@@ -144,7 +144,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container fluid='true' maxWidth='lg'>
+          <Container fluid='true' maxWidth='lg' disableGutters>
             <Grid>
               <Outlet />
             </Grid>

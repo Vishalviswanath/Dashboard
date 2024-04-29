@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -17,7 +18,6 @@ import {
   TextField,
   styled,
 } from '@mui/material';
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -106,7 +106,7 @@ const EmployeeCard = ({ records, setRecords }) => {
   const rows = records;
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -120,126 +120,138 @@ const EmployeeCard = ({ records, setRecords }) => {
   return (
     <Paper variant='outlined' sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 480 }}>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead sx={{ backgroundColor: 'black' }}>
-            <TableRow>
-              {columns.map((column) => (
-                <StyledTableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((record) => {
-                return (
-                  <StyledTableRow
-                    hover
-                    role='checkbox'
-                    tabIndex={-1}
-                    key={record.id}
-                    align={'center'}
+        {rows.length === 0 ? (
+          <>
+            <img
+              src='/src/assets/employee/noRecords.png'
+              alt='norecors'
+              style={{ width: '100%', height: 460 }}
+            />
+          </>
+        ) : (
+          <Table stickyHeader aria-label='sticky table'>
+            <TableHead sx={{ backgroundColor: 'black' }}>
+              <TableRow>
+                {columns.map((column) => (
+                  <StyledTableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
                   >
-                    <StyledTableCell
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((record) => {
+                  return (
+                    <StyledTableRow
+                      hover
+                      role='checkbox'
+                      tabIndex={-1}
+                      key={record.id}
+                      align={'center'}
                     >
-                      <Avatar
-                        // align='center'
+                      <StyledTableCell
                         sx={{
-                          width: '100px',
-                          height: '100px',
-                          margin: '20px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
                         }}
                       >
-                        <img
-                          src={`${record.image}`}
-                          alt={record.name}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
+                        <Avatar
+                          sx={{
+                            width: '100px',
+                            height: '100px',
                           }}
-                        />
-                      </Avatar>
-                    </StyledTableCell>
-                    <StyledTableCell align={'center'}>
-                      {record.name}
-                    </StyledTableCell>
-                    <StyledTableCell align={'center'}>
-                      {record.role}
-                    </StyledTableCell>
-                    <StyledTableCell align={'center'}>
-                      {record.contact}
-                    </StyledTableCell>
-                    <StyledTableCell align={'center'}>
-                      <Button onClick={() => handleClickOpen(record.id)}>
-                        Edit
-                      </Button>
-                      <Button onClick={() => deleteHandler(record.id)}>
-                        Delete
-                      </Button>
+                        >
+                          <img
+                            src={`${record.image}`}
+                            alt={record.name}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                          />
+                        </Avatar>
+                      </StyledTableCell>
+                      <StyledTableCell align={'center'}>
+                        {record.name}
+                      </StyledTableCell>
+                      <StyledTableCell align={'center'}>
+                        {record.role}
+                      </StyledTableCell>
+                      <StyledTableCell align={'center'}>
+                        {record.contact}
+                      </StyledTableCell>
+                      <StyledTableCell align={'center'}>
+                        <Button onClick={() => handleClickOpen(record.id)}>
+                          Edit
+                        </Button>
+                        <Button onClick={() => deleteHandler(record.id)}>
+                          Delete
+                        </Button>
 
-                      <Dialog
-                        open={open === record.id}
-                        onClose={handleClose}
-                        PaperProps={{
-                          component: 'form',
-                          onSubmit: (e) => handleUpadet(record.id, e),
-                        }}
-                        sx={{ maxHeight: 'auto' }}
-                      >
-                        <DialogTitle>Edit a Employee</DialogTitle>
-                        <DialogContent>
-                          <TextField
-                            label='Name'
-                            name='name'
-                            defaultValue={record.name}
-                            margin='dense'
-                            fullWidth
-                            variant='standard'
-                          />
-                          <TextField
-                            label='Role'
-                            name='role'
-                            defaultValue={record.role}
-                            margin='normal'
-                            variant='standard'
-                            sx={{ marginRight: '40px' }}
-                          />
-                          <TextField
-                            label='Contact'
-                            name='contact'
-                            defaultValue={record.contact}
-                            margin='normal'
-                            variant='standard'
-                          />
-                          <TextField type='file' margin='normal' name='image' />
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose} variant='outlined'>
-                            Cancel
-                          </Button>
-                          <Button type='submit' variant='contained'>
-                            Update
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
+                        <Dialog
+                          open={open === record.id}
+                          onClose={handleClose}
+                          PaperProps={{
+                            component: 'form',
+                            onSubmit: (e) => handleUpadet(record.id, e),
+                          }}
+                          sx={{ maxHeight: 'auto' }}
+                        >
+                          <DialogTitle>Edit a Employee</DialogTitle>
+                          <DialogContent>
+                            <TextField
+                              label='Name'
+                              name='name'
+                              defaultValue={record.name}
+                              margin='dense'
+                              fullWidth
+                              variant='standard'
+                            />
+                            <TextField
+                              label='Role'
+                              name='role'
+                              defaultValue={record.role}
+                              margin='normal'
+                              variant='standard'
+                              sx={{ marginRight: '40px' }}
+                            />
+                            <TextField
+                              label='Contact'
+                              name='contact'
+                              defaultValue={record.contact}
+                              margin='normal'
+                              variant='standard'
+                            />
+                            <TextField
+                              type='file'
+                              margin='normal'
+                              name='image'
+                            />
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose} variant='outlined'>
+                              Cancel
+                            </Button>
+                            <Button type='submit' variant='contained'>
+                              Update
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        )}
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}

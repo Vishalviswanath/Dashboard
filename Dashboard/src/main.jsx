@@ -5,6 +5,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Employee from './components/employee/Employee.jsx';
 import App from './App.jsx';
 import Dashboard from './components/dashboard/Dashboard.jsx';
+import Integration from './components/integration/Integration.jsx';
+import Dash from './components/dashboard/Dash.jsx';
+import Onboarding from './components/onboarding/Onboarding.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,6 +16,18 @@ const router = createBrowserRouter([
       {
         path: 'employee',
         element: <Employee />,
+      },
+      {
+        path: 'integration',
+        element: <Integration />,
+      },
+      {
+        path: 'dash',
+        element: <Dash />,
+      },
+      {
+        path: 'onboarding',
+        element: <Onboarding />,
       },
     ],
   },
