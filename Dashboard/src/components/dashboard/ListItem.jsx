@@ -8,17 +8,24 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { Link } from 'react-router-dom';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import QuizIcon from '@mui/icons-material/Quiz';
+import '../../App.css';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton LinkComponent={Link} to='/dash'>
+    <ListItemButton
+      LinkComponent={Link}
+      to='/'
+      // isActive={{ exact: true, strict: false }}
+    >
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary='Dashboard' />
     </ListItemButton>
 
-    <ListItemButton LinkComponent={Link} to='/integration'>
+    <ListItemButton LinkComponent={Link} to='/integration' selected={false}>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
@@ -27,7 +34,7 @@ export const mainListItems = (
 
     <ListItemButton LinkComponent={Link} to='/onboarding'>
       <ListItemIcon>
-        <LayersIcon />
+        <HandshakeIcon />
       </ListItemIcon>
       <ListItemText primary='On-Boarding' />
     </ListItemButton>
@@ -37,6 +44,13 @@ export const mainListItems = (
         <BadgeIcon />
       </ListItemIcon>
       <ListItemText primary='Employee' />
+    </ListItemButton>
+
+    <ListItemButton LinkComponent={Link} to='/taketest'>
+      <ListItemIcon>
+        <QuizIcon />
+      </ListItemIcon>
+      <ListItemText primary='Take Test' />
     </ListItemButton>
   </React.Fragment>
 );
@@ -50,7 +64,7 @@ export const secondaryListItems = (
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary='Current month' />
+      <ListItemText primary='Pay Slips' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

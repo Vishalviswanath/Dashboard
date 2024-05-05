@@ -79,12 +79,16 @@ function DashboardContent() {
         <AppBar
           position='absolute'
           open={open}
-          sx={{ backgroundColor: '#B1B1EF' }}
-          variant='outlined'
+          sx={{
+            backgroundColor:
+              // '#B1B1EF'
+              ' #1976d2',
+          }}
+          // variant='outlined'
         >
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px',
             }}
           >
             <IconButton
@@ -141,6 +145,7 @@ function DashboardContent() {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            background: 'linear-gradient(0deg, #B1B1EF 24%, #1976d2 74%)',
           }}
         >
           <Toolbar />

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -18,6 +17,7 @@ import {
   TextField,
   styled,
 } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,25 +33,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
 
-const EmployeeCard = ({ records, setRecords }) => {
+const EmployeeCard = ({ results, setRecords }) => {
   const [open, setOpen] = React.useState(null);
 
-  const handleClickOpen = (id) => {
-    setOpen(id);
-  };
+  // const handleClickOpen = (id) => {
+  //   setOpen(id);
+  // };
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const deleteHandler = (id) => {
-    setRecords(records.filter((record) => record.id !== id));
+    setRecords(results.filter((record) => record.id !== id));
   };
 
   const handleUpadet = (id, e) => {
@@ -65,7 +64,7 @@ const EmployeeCard = ({ records, setRecords }) => {
       image: formData.get('image'),
     };
     setRecords(
-      records.map((record) => (record.id === id ? updatedRecords : record))
+      results.map((record) => (record.id === id ? updatedRecords : record))
     );
     handleClose();
   };
@@ -103,7 +102,7 @@ const EmployeeCard = ({ records, setRecords }) => {
     },
   ];
 
-  const rows = records;
+  const rows = results;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -117,8 +116,12 @@ const EmployeeCard = ({ records, setRecords }) => {
     setPage(0);
   };
 
+  const navigate = useNavigate();
+
   return (
-    <Paper variant='outlined' sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper variant='outlined' sx={{ width: '100%', overflow: 'hidden',borderRadius:'20px',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+    backdropFilter: 'blur( 5px )',
+    webkitBackdropFilter: 'blur(5px)', }}>
       <TableContainer sx={{ maxHeight: 480 }}>
         {rows.length === 0 ? (
           <>
@@ -189,9 +192,14 @@ const EmployeeCard = ({ records, setRecords }) => {
                         {record.contact}
                       </StyledTableCell>
                       <StyledTableCell align={'center'}>
-                        <Button onClick={() => handleClickOpen(record.id)}>
-                          Edit
-                        </Button>
+                   
+                          <Button
+                          // onClick={() => handleClickOpen(record.id)}
+                          onClick={() => navigate('/employeedetails')}
+                          >
+                            View
+                          </Button>
+                 
                         <Button onClick={() => deleteHandler(record.id)}>
                           Delete
                         </Button>

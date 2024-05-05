@@ -9,6 +9,7 @@ import { Profile } from '../profile/Profile';
 import Education from '../education/Education';
 import Experience from '../experience/Experience';
 import SocialMedia from '../socialmedia/SocialMedia';
+import { Card } from '@mui/material';
 
 const steps = ['Add Profile', 'Experience', 'Education', 'Social Media'];
 
@@ -60,7 +61,7 @@ export default function Onboarding() {
 
   return (
     <Box sx={{ width: '100%', marginTop: '40px' }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} sx={{color:'white'}}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
@@ -69,21 +70,38 @@ export default function Onboarding() {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+            <Step key={label} {...stepProps} >
+              <StepLabel {...labelProps} >{label}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
+          <Card
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              margin: '30px',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              height: '450px',
+              padding: '20px',
+              border: '1px solid rgba( 255, 255, 255, 0.18 )',
+              borderRadius: '20px',
+              boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+              backdropFilter: 'blur( 5px )',
+              webkitBackdropFilter: 'blur(5px)',
+            }}
+          >
+            <Typography sx={{ mt: 2, mb: 1 }}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
+              <Button onClick={handleReset}>Reset</Button>
+            </Box>
+          </Card>
         </React.Fragment>
       ) : (
         <React.Fragment>
