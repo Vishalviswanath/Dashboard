@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,13 +13,11 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-// import Paper from "@mui/material/Paper";
-// import Link from "@mui/material/Link";
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './ListItem';
-import ProductCard from '../products/ProductCard';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -73,50 +72,6 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const products = [
-    {
-      id: 1,
-      title: 'Product 1',
-      description: 'Description of Product 1',
-      price: 19.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-    {
-      id: 2,
-      title: 'Product 2',
-      description: 'Description of Product 2',
-      price: 29.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-    {
-      id: 3,
-      title: 'Product 3',
-      description: 'Description of Product 3',
-      price: 39.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-    {
-      id: 1,
-      title: 'Product 1',
-      description: 'Description of Product 1',
-      price: 19.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-    {
-      id: 2,
-      title: 'Product 2',
-      description: 'Description of Product 2',
-      price: 29.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-    {
-      id: 3,
-      title: 'Product 3',
-      description: 'Description of Product 3',
-      price: 39.99,
-      image: 'https://via.placeholder.com/345x140',
-    },
-  ];
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -124,11 +79,16 @@ function DashboardContent() {
         <AppBar
           position='absolute'
           open={open}
-          sx={{ backgroundColor: '#B1B1EF' }}
+          sx={{
+            backgroundColor:
+              // '#B1B1EF'
+              ' #1976d2',
+          }}
+          // variant='outlined'
         >
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px',
             }}
           >
             <IconButton
@@ -182,38 +142,16 @@ function DashboardContent() {
         <Box
           component='main'
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[300]
-                : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            background: 'linear-gradient(0deg, #B1B1EF 24%, #1976d2 74%)',
           }}
         >
           <Toolbar />
-          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={12} lg={12}>
-                <Box
-                  sx={{
-                    p: 1,
-                    display: 'flex',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                    }}
-                  >
-                    {products.map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                  {/* <h1>Hello</h1> */}
-                </Box>
-              </Grid>
+          <Container fluid='true' maxWidth='lg' disableGutters>
+            <Grid>
+              <Outlet />
             </Grid>
           </Container>
         </Box>
